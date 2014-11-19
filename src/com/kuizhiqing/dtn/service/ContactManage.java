@@ -23,7 +23,7 @@ public class ContactManage {
 	public void read(String file) throws Exception{
 		BufferedReader br = new BufferedReader(new FileReader(new File(file)));
 		String line = br.readLine();
-		int test = 600;
+		//int test = 3000000;
 		while(line!=null){
 			if(line.contains("up")){
 				String[] ls = line.split(" ");
@@ -50,13 +50,13 @@ public class ContactManage {
 			line = br.readLine();
 			/*
 			 * 
-			 */
+			 *
 			if(test>0){
 				test--;
 			}else{
 				break;
 			}
-			/*
+			*
 			 */
 		}
 		br.close();
@@ -98,6 +98,7 @@ public class ContactManage {
 				line += d.getId()+"["+d.getTime()+"]-";
 			}
 			System.out.println(line);
+			line = "";
 		}
 	}
 
@@ -176,7 +177,13 @@ public class ContactManage {
 		}
 		return null;
 	}
-	
+	/**
+	 * collect all paths possible from n1 to n2 in 2 hop
+	 * 
+	 * @param n1
+	 * @param n2
+	 * @return
+	 */
 	public ArrayList<ArrayList<Dot>> allHop(Dot n1, Dot n2){
 		System.out.println("allhop : " + n1.getId()+ " after " + n1.getTime());
 		ArrayList<ArrayList<Dot>> result = new ArrayList<ArrayList<Dot>>();
@@ -187,7 +194,6 @@ public class ContactManage {
 				if(d.getId()==n2.getId()){
 					tmp.add(d);
 					result.add(tmp);
-					//tmp = new ArrayList<Dot>();
 				}else{
 					ArrayList<Dot> h = direct(d,n2);
 					if(h==null){
@@ -195,7 +201,6 @@ public class ContactManage {
 					}else{
 						tmp.addAll(h);
 						result.add(tmp);
-						//tmp = new ArrayList<Dot>();
 					}
 				}
 			}
