@@ -50,15 +50,16 @@ public class ContactService {
 			line = br.readLine();
 			/*
 			 * 
-			 */
+			 *
 			if(test>0){
 				test--;
 			}else{
 				break;
 			}
-			/*
+			*
 			 */
 		}
+		br.close();
 	}
 	
 	public void print(String file) throws IOException{
@@ -91,29 +92,37 @@ public class ContactService {
 		}
 	}
 	
+	String ids = ","; // nothing for git
 	public String searchRoute(int n1, int n2, double time){
+		ids += n1+",";
 		String key = n1+"_"+n2+"_"+time;
 		if(subpath.containsKey(key)){
 			System.out.println("log:"+key);
 			return subpath.get(key);
 		}
 		System.out.println("search : " + n1+ " and " + n2 +" after " + time);
-		String result = "";
-		String ids = "";
+		String result = "";  
 		for(Dot d : list.get(n1)){
 			if(ids.contains(","+d.getId()+",")) continue;
-			ids += d.getId()+",";
+			ids += d.getId()+",";  
 			String tmp = "";
 			if(d.getTime()<=time) continue;
 			if(d.getId()==n2){
 				tmp =  d.getId()+".\r\n";
+				ids = ",";
+				result += tmp;
+				return result;
 			}else{
 				tmp =  d.getId()+","+searchRoute(d.getId(),n2,d.getTime());
 			}
 			result += tmp;
 		}
 		System.out.println("++"+n1);
-		if(!result.equals("")) subpath.put(key, result);
+		if(!result.equals("")){
+			subpath.put(key, result);
+		}else{
+			ids = ",";
+		}
 		return result;
 	}
 	
