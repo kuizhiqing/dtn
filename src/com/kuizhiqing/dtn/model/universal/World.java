@@ -9,34 +9,10 @@ import java.util.ArrayList;
  */
 public class World {
 	
-	private ArrayList<Dot> dots;
-	private ArrayList<Path> paths;
-	private ArrayList<Route> routes;
+	public static double time = 0;
 	
-	public World() {
-		super();
-		this.dots = new ArrayList<Dot>();
-		this.paths = new ArrayList<Path>();
-		this.routes = new ArrayList<Route>();
-	}
+	public static ArrayList<Dot> dots;
+	public static ArrayList<Path> paths;
+	public static ArrayList<Route> routes;
 	
-	public ArrayList<Dot> getDots() {
-		return dots;
-	}
-	public void setDots(ArrayList<Dot> dots) {
-		this.dots = dots;
-	}
-	public ArrayList<Path> getPaths() {
-		return paths;
-	}
-	public void setPaths(ArrayList<Path> paths) {
-		this.paths = paths;
-	}
-	public ArrayList<Route> getRoutes() {
-		return routes;
-	}
-	public void setRoutes(ArrayList<Route> routes) {
-		this.routes = routes;
-	}
-
 }

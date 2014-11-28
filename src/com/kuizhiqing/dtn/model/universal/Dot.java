@@ -10,7 +10,7 @@ public class Dot {
 	private Integer id;
 	private Integer snapshot;
 	private Integer nid; // node id = path id
-	private Integer mid; // route id
+	private Integer mid; // message id = route id
 	private Double time;
 	private Double x;
 	private Double y;

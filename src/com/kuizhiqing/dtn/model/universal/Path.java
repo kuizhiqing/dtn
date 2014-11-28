@@ -15,6 +15,13 @@ public class Path extends ArrayList<Dot>{
 	private Double endTime;
 
 	private Integer nid; // node id 
+	
+	public Path(){
+		super();
+		this.id = World.paths.size();
+		this.beginTime = World.time;
+		this.endTime = 0d;
+	}
 
 	public Integer getId() {
 		return id;
