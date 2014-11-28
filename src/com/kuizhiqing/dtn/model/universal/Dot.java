@@ -1,5 +1,10 @@
 package com.kuizhiqing.dtn.model.universal;
 
+/**
+ * 
+ * @author kuizhiqing
+ *
+ */
 public class Dot {
 	
 	private Integer id;
