@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Set;
 import java.util.Vector;
 
 public class ContactStat {
@@ -17,12 +19,17 @@ public class ContactStat {
 	public double endTime;
 	public Vector<Node> nodes;
 	
+	public HashMap<Integer,Integer> contactTimesDistribution;
+	public int sumFriens;
+	
 	public ContactStat(){
 		dataLines = 0;
 		node = 0;
 		beginTime = 0;
 		endTime = 0;
 		nodes = new Vector<Node>();
+		contactTimesDistribution = new HashMap<Integer,Integer>();
+		sumFriens = 0;
 	}
 	
 	public void op(String file) throws Exception{
@@ -30,7 +37,7 @@ public class ContactStat {
 		BufferedReader br = new BufferedReader(new FileReader(new File(file)));
 		String line = br.readLine();
 		while(line!=null){
-			System.out.println("line"+dataLines);
+			//System.out.println("line"+dataLines);
 			dataLines++;
 			if(line.contains("up")){
 				isup = true;
@@ -47,7 +54,7 @@ public class ContactStat {
 			if(node>=nodesize){
 				for(int i=0;i<=node-nodesize;i++){
 					nodes.add(new Node(i+nodesize));
-					System.out.println(node+"|"+(i+nodesize));
+					//System.out.println(node+"|"+(i+nodesize));
 				}
 			}
 			if(time>=endTime){
@@ -65,15 +72,10 @@ public class ContactStat {
 	}
 	
 	public void report(String name) throws IOException{
-		BufferedWriter wr = new BufferedWriter(new FileWriter(new File(name+"_sum.txt")));
+
 		String line = "";
-		line = "name="+name+"\r\n";
-		line += "allcontact="+dataLines/2+"\r\n";
-		line += "begintime="+beginTime+"\r\n";
-		line += "endtime="+endTime+"\r\n";
-		line += "node="+node+"\r\n";
-		wr.write(line);
-		wr.flush();
+		BufferedWriter wr = null;
+		
 		wr = new BufferedWriter(new FileWriter(new File(name+"_detail.txt")));
 		for(int i=0;i<nodes.size();i++){
 			Node node = nodes.get(i);
@@ -81,10 +83,37 @@ public class ContactStat {
 			line += "friends="+node.friends()+"\r\n";
 			line += "contacts="+node.contactTimes()+"\r\n";
 			line += "aduration="+node.getAverageDuration()+"\r\n";
+			line += "atimes="+node.getAverageContactTimes()+"\r\n";
+			line += "distribution="+node.getContactTimesDistribution().toString()+"\r\n";
 			wr.write(line);
+			appendContactTimesDistribution(node.getContactTimesDistribution());
+			sumFriens += node.friends();
 		}
+		//System.out.println("----"+contactTimesDistribution.toString());
 		wr.flush();
 		wr.close();
+		
+		wr = new BufferedWriter(new FileWriter(new File(name+"_sum.txt")));
+		line = "name="+name+"\r\n";
+		line += "datalines="+dataLines+"\r\n";
+		line += "allcontact="+dataLines/2+"\r\n";
+		line += "afriends="+sumFriens*1.0/(node+1)+"\r\n";
+		line += "friendratio="+sumFriens*1.0/(node+1)/(node+1)+"\r\n";
+		line += "begintime="+beginTime+"\r\n";
+		line += "endtime="+endTime+"\r\n";
+		line += "node="+(node+1)+"\r\n";
+		line += "distribution="+contactTimesDistribution.toString()+"\r\n";
+		wr.write(line);
+		wr.flush();
+	}
+	
+	public void appendContactTimesDistribution(HashMap<Integer,Integer> d){
+		Set<Integer> c = d.keySet();
+		for(int i : c){
+			int tmp = d.get(i);
+			if(contactTimesDistribution.containsKey(i)) tmp += contactTimesDistribution.get(i);
+			contactTimesDistribution.put(i, tmp);
+		}
 	}
 
 }

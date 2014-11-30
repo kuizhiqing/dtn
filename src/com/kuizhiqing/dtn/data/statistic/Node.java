@@ -1,5 +1,6 @@
 package com.kuizhiqing.dtn.data.statistic;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -16,6 +17,8 @@ public class Node {
 	public HashMap<Integer,Integer> friends;  //id-times
 	public HashMap<Integer,Double> interval;  //id-time
 	
+	public HashMap<Integer,Integer> contactTimesDistribution;  //times-times 10-30 : there 30 friends < 10 times contact
+	
 	public Node(){
 		
 	}
@@ -31,7 +34,7 @@ public class Node {
 	public void process(int id,double time,boolean isup){
 		if(isup){
 			contacts.add(id);
-			int tmp = 0;
+			int tmp = 1;
 			if(friends.containsKey(id)) tmp = friends.get(id)+1;
 			friends.put(id, tmp);
 			interval.put(id, time);
@@ -52,6 +55,29 @@ public class Node {
 			amount += d;
 		}
 		return amount/duration.size();
+	}
+	public double getAverageContactTimes(){
+		double amount = 0;
+		Collection<Integer> c = friends.values();
+		for (int i : c) {
+			amount += i;
+		}
+		return amount/friends.size();
+	}
+	public HashMap<Integer,Integer> getContactTimesDistribution(){
+		contactTimesDistribution = new HashMap<Integer,Integer>();
+		Collection<Integer> c = friends.values();
+		for (int i : c) {
+			int key = ((i-1)/10+1)*10;
+			int tmp = 1;
+			if(contactTimesDistribution.containsKey(key)) tmp =  contactTimesDistribution.get(key)+1;
+			if(key>100){
+				contactTimesDistribution.put(110,tmp);
+				continue;
+			}
+			contactTimesDistribution.put(key,tmp);
+		}
+		return contactTimesDistribution;
 	}
 	public int contactTimes(){
 		return contacts.size();
