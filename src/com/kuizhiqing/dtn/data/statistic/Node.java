@@ -68,13 +68,14 @@ public class Node {
 		contactTimesDistribution = new HashMap<Integer,Integer>();
 		Collection<Integer> c = friends.values();
 		for (int i : c) {
-			int key = ((i-1)/10+1)*10;
+			//int key = ((i-1)/10+1)*10;
+			int key = i;
 			int tmp = 1;
 			if(contactTimesDistribution.containsKey(key)) tmp =  contactTimesDistribution.get(key)+1;
-			if(key>100){
+			/*if(key>100){
 				contactTimesDistribution.put(110,tmp);
 				continue;
-			}
+			}*/
 			contactTimesDistribution.put(key,tmp);
 		}
 		return contactTimesDistribution;

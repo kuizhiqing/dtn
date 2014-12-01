@@ -54,7 +54,6 @@ public class ContactStat {
 			if(node>=nodesize){
 				for(int i=0;i<=node-nodesize;i++){
 					nodes.add(new Node(i+nodesize));
-					//System.out.println(node+"|"+(i+nodesize));
 				}
 			}
 			if(time>=endTime){
