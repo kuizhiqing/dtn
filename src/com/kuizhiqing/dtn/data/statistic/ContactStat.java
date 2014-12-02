@@ -76,6 +76,8 @@ public class ContactStat {
 		BufferedWriter wr = null;
 		
 		wr = new BufferedWriter(new FileWriter(new File(name+"_detail.txt")));
+		String friends = "";
+		String adurations = "";
 		for(int i=0;i<nodes.size();i++){
 			Node node = nodes.get(i);
 			line = "id="+node.getId()+"\r\n";
@@ -87,6 +89,8 @@ public class ContactStat {
 			wr.write(line);
 			appendContactTimesDistribution(node.getContactTimesDistribution());
 			sumFriens += node.friends();
+			friends += node.friends()+",";
+			adurations += node.getAverageDuration()+",";
 		}
 		//System.out.println("----"+contactTimesDistribution.toString());
 		wr.flush();
@@ -102,6 +106,8 @@ public class ContactStat {
 		line += "endtime="+endTime+"\r\n";
 		line += "node="+(node+1)+"\r\n";
 		line += "distribution="+contactTimesDistribution.toString()+"\r\n";
+		line += "friends="+friends+"\r\n";
+		line += "adurations="+adurations+"\r\n";
 		wr.write(line);
 		wr.flush();
 	}
