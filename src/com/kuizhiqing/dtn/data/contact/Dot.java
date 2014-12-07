@@ -1,7 +1,5 @@
 package com.kuizhiqing.dtn.data.contact;
 
-import java.util.ArrayList;
-
 public class Dot {
 	
 	private int id;

@@ -1,35 +1,39 @@
-package com.kuizhiqing.dtn.service;
+package com.kuizhiqing.dtn.data.contact;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.kuizhiqing.dtn.data.contact.Dot;
-
 public class ContactManage {
 	
 	private ArrayList<ArrayList<Dot>> list;
-	
 	private HashMap<String,String> subpath;
+	public int node;
 	
-	public void init(int size){
+	public void init(){
+		node = 0;
 		list = new ArrayList<ArrayList<Dot>>();
-		for(int i=0;i<size;i++){
-			list.add(new ArrayList<Dot>());
-		}
 		subpath = new HashMap<String,String>();
 	}
 	
-	public void read(String file) throws Exception{
+	public void loaddata(String file) throws Exception{
 		BufferedReader br = new BufferedReader(new FileReader(new File(file)));
 		String line = br.readLine();
-		//int test = 3000000;
+		int MAXLINE = -1;  // -1 for all
 		while(line!=null){
 			if(line.contains("up")){
 				String[] ls = line.split(" ");
 				double time = Double.parseDouble(ls[0]);
 				int n1 = Integer.parseInt(ls[2].replace("n", ""));
 				int n2 = Integer.parseInt(ls[3].replace("n", ""));
+				if(n1>node) node = n1;
+				if(n2>node) node = n2;
+				int nodesize = list.size();
+				if(node>=nodesize){
+					for(int i=0;i<=node-nodesize;i++){
+						list.add(new ArrayList<Dot>());
+					}
+				}
 				Dot dot1 = new Dot(n1,time);
 				Dot dot2 = new Dot(n2,time);
 				ArrayList<Dot> l1 = list.get(n1);
@@ -48,16 +52,11 @@ public class ContactManage {
 				}
 			}
 			line = br.readLine();
-			/*
-			 * 
-			 *
-			if(test>0){
-				test--;
-			}else{
+			if(MAXLINE>0){
+				MAXLINE--;
+			}else if(MAXLINE==0){
 				break;
 			}
-			*
-			 */
 		}
 		br.close();
 	}
@@ -331,14 +330,13 @@ public class ContactManage {
 
 	public static void main(String[] args) {
 		long runtime = System.currentTimeMillis();
-		String filename = "pmtr.txt";
+		String filename = "data/pmtr.txt";
 		String outdata = "pmtr_nodes.csv";
 		String result = "pmtr_results.txt";
 		String logmap = "pmtr_logmap.txt";
 		ContactManage cs = new ContactManage();
-		cs.init(44);
 		try {
-			cs.read(filename);
+			cs.loaddata(filename);
 			//cs.print(outdata);
 		} catch (Exception e) {
 			e.printStackTrace();
