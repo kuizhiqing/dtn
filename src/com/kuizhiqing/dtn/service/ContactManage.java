@@ -1,4 +1,4 @@
-package com.kuizhiqing.dtn.service;
+ï»¿package com.kuizhiqing.dtn.service;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -136,10 +136,10 @@ public class ContactManage {
 	}
 	/**
 	 * attention : this function is DEPTH FIRST if non strict !!!
-	 * true true   ÑÏ¸ñ2Ìø,Éî¶ÈÓÅÏÈ
-	 * true false  ÎŞÏŞÖÆ£¬¹ã¶ÈÓÅÏÈ
-	 * false false ÎŞÏŞÖÆ£¬¹ã¶ÈÓÅÏÈ
-	 * false true  ÎŞÏŞÖÆ£¬Éî¶ÈÓÅÏÈ
+	 * true true   ä¸¥æ ¼2è·³,æ·±åº¦ä¼˜å…ˆ
+	 * true false  æ— é™åˆ¶ï¼Œå¹¿åº¦ä¼˜å…ˆ
+	 * false false æ— é™åˆ¶ï¼Œå¹¿åº¦ä¼˜å…ˆ
+	 * false true  æ— é™åˆ¶ï¼Œæ·±åº¦ä¼˜å…ˆ
 	 * @param n1
 	 * @param n2
 	 * @param strict if allowed direct contact
