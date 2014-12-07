@@ -152,6 +152,65 @@ public class ContactService {
 		wr.close();
 	}
 
+/*	
+	String ids = ","; // nothing for git
+	public String searchRoute(int n1, int n2, double time){
+		ids += n1+",";
+		String key = n1+"_"+n2+"_"+time;
+		if(subpath.containsKey(key)){
+			System.out.println("log:"+key);
+			return subpath.get(key);
+		}
+		System.out.println("search : " + n1+ " and " + n2 +" after " + time);
+		String result = "";  
+		for(Dot d : list.get(n1)){
+			if(ids.contains(","+d.getId()+",")) continue;
+			ids += d.getId()+",";  
+			String tmp = "";
+			if(d.getTime()<=time) continue;
+			if(d.getId()==n2){
+				tmp =  d.getId()+".";
+			}else{
+				tmp =  d.getId()+","+searchRoute(d.getId(),n2,d.getTime());
+			}
+			result += tmp+"|";
+		}
+		System.out.println("++"+n1);
+		if(!result.equals("")){
+			subpath.put(key, result);
+		}else{
+			ids = ",";
+		}
+		return "("+result+")";
+	}
+	
+	public void search(int n1, int n2, double time){
+		String result = "";
+		for(Dot d : list.get(n1)){
+			if(d.getTime()<=time) continue;
+			if(d.getId()==n2){
+				result =  d.getId()+".\r\n";
+				System.out.println(result+"-");
+			}else{
+				//result =  d.getId()+","+searchRoute(d.getId(),n2,d.getTime());
+				searchRoute(d.getId(),n2,d.getTime());
+				result =  d.getId()+",";
+				System.out.println(result+"-");
+			}
+		}
+		//return result;
+	}
+	
+	public void logMap(String file) throws IOException{
+		BufferedWriter wr = new BufferedWriter(new FileWriter(new File(file)));
+		for(String key : subpath.keySet()){
+			wr.write(key+":"+subpath.get(key)+"\r\n");
+		}
+		wr.flush();
+		wr.close();
+	}
+*/
+	
 	public static void main(String[] args) {
 		String filename = "pmtr.txt";
 		String outdata = "pmtr_nodes.csv";
