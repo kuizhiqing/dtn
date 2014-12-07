@@ -1,4 +1,4 @@
-﻿package com.kuizhiqing.dtn.service;
+package com.kuizhiqing.dtn.service;
 
 import java.io.*;
 import java.util.ArrayList;
