@@ -248,7 +248,11 @@ public class ContactService {
 						tmp.addAll(h);
 					}
 				}
-				if(result.size()==0||result.get(result.size()-1).getTime()>tmp.get(tmp.size()-1).getTime()){
+				if(result.size()==0){
+					result = tmp;
+				}else if(result.get(result.size()-1).getTime()>tmp.get(tmp.size()-1).getTime()){
+					result = tmp;
+				}else if(result.get(result.size()-1).getTime()==tmp.get(tmp.size()-1).getTime()&&result.size()>tmp.size()){
 					result = tmp;
 				}
 			}
@@ -274,7 +278,11 @@ public class ContactService {
 						tmp.addAll(h);
 					}
 				}
-				if(result.size()==0||result.get(result.size()-1).getTime()>tmp.get(tmp.size()-1).getTime()){
+				if(result.size()==0){
+					result = tmp;
+				}else if(result.get(result.size()-1).getTime()>tmp.get(tmp.size()-1).getTime()){
+					result = tmp;
+				}else if(result.get(result.size()-1).getTime()==tmp.get(tmp.size()-1).getTime()&&result.size()>tmp.size()){
 					result = tmp;
 				}
 			}
@@ -284,7 +292,8 @@ public class ContactService {
 	}
 	
 	public ArrayList<Dot> quikHop(Dot n1, Dot n2, int n){
-		System.out.println("quikHop : " + n1.getId()+ " after " + n1.getTime());
+//		if(n==3) return quikThreeHop(n1, n2);
+		//System.out.println("quikHop : " + n1.getId()+ " after " + n1.getTime());
 		ArrayList<Dot> result = new ArrayList<Dot>();
 		ArrayList<Dot> tmp = null;
 		for(Dot d : list.get(n1.getId())){
@@ -302,7 +311,11 @@ public class ContactService {
 						tmp.addAll(h);
 					}
 				}
-				if(result.size()==0||result.get(result.size()-1).getTime()>tmp.get(tmp.size()-1).getTime()){
+				if(result.size()==0){
+					result = tmp;
+				}else if(result.get(result.size()-1).getTime()>tmp.get(tmp.size()-1).getTime()){
+					result = tmp;
+				}else if(result.get(result.size()-1).getTime()==tmp.get(tmp.size()-1).getTime()&&result.size()>tmp.size()){
 					result = tmp;
 				}
 			}
@@ -353,24 +366,24 @@ public class ContactService {
 		Dot n1 = new Dot(16,0);
 		Dot n2 = new Dot(20,1000000);
 		ArrayList<Dot> re = cs.hop(n1, n2);
-		ArrayList<Dot> re0 = cs.twoHop(n1, n2);
-		ArrayList<Dot> re1 = cs.twoHop(n1, n2,true);
-		ArrayList<Dot> re2 = cs.twoHop(n1, n2,false);
-		ArrayList<Dot> re3 = cs.quikTwoHop(n1, n2);
-		ArrayList<Dot> re4 = cs.quikThreeHop(n1, n2);
-		ArrayList<Dot> rek = cs.quikHop(n1, n2,1);
 		cs.console(re);
+		ArrayList<Dot> re0 = cs.twoHop(n1, n2);
 //		cs.console(re0);
+		ArrayList<Dot> re1 = cs.twoHop(n1, n2,true);
 //		cs.console(re1);
+		ArrayList<Dot> re2 = cs.twoHop(n1, n2,false);
 //		cs.console(re2);
+		ArrayList<Dot> re3 = cs.quikTwoHop(n1, n2);
 		cs.console(re3);
+		ArrayList<Dot> re4 = cs.quikThreeHop(n1, n2);
 		cs.console(re4);
+		ArrayList<Dot> rek = cs.quikHop(n1, n2,3);
 		cs.console(rek);
 		
 		ArrayList<ArrayList<Dot>> ref = cs.twoHops(n1, n2);
 		ArrayList<ArrayList<Dot>> ref3 = cs.threeHops(n1, n2);
 		//cs.consoleList(ref);
-		cs.consoleList(ref3);
+		//cs.consoleList(ref3);
 
 		System.out.println("time:"+(System.currentTimeMillis()-runtime));
 	}
