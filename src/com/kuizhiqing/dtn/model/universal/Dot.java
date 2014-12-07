@@ -5,55 +5,22 @@ package com.kuizhiqing.dtn.model.universal;
  * @author kuizhiqing
  *
  */
-public class Dot {
+public abstract class  Dot {
 	
-	private Integer id;
-	protected Integer nid; // node id = path id
-	protected Integer mid; // message id = route id
+	protected Integer id;
 	protected Double time;
 	
-	public Dot() {
-		super();
+	protected Integer nid; // node id = path id
+	
+	protected Integer mid; // message id = route id
+	protected Integer destination; // destination id
+	protected Double ttl; // time to life
+	protected Integer htl; // hop to life
+	
+	public boolean hasMessage(){
+		return mid==null?false:true;
 	}
-	public Dot(Integer id, Double x, Double y) {
-		super();
-		this.id = id;
-	}
-	public Dot(Integer nid, Double time) {
-		super();
-		this.nid = nid;
-		this.time = time;
-	}
-	public Dot(Integer id, Integer nid, Double time) {
-		super();
-		this.id = id;
-		this.nid = nid;
-		this.time = time;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public Integer getNid() {
-		return nid;
-	}
-	public void setNid(Integer nid) {
-		this.nid = nid;
-	}
-	public Integer getMid() {
-		return mid;
-	}
-	public void setMid(Integer mid) {
-		this.mid = mid;
-	}
-	public Double getTime() {
-		return time;
-	}
-	public void setTime(Double time) {
-		this.time = time;
-	}
+	
+	public abstract double distance(Dot dot);
 	
 }

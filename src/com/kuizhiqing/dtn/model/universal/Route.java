@@ -44,7 +44,7 @@ public class Route extends ArrayList<Dot>{
 	public boolean update(){
 		boolean flag = true;
 		this.hop = this.size()-1;
-		if(this.get(this.size()-1).getId() == this.did) this.isComplete = true;
+		//if(this.get(this.size()-1).getId() == this.did) this.isComplete = true;
 		return flag;
 	}
 	

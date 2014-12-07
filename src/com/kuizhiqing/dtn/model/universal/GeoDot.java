@@ -80,5 +80,11 @@ public class GeoDot extends Dot {
 	public void setY(Double y) {
 		this.y = y;
 	}
+	
+	@Override
+	public double distance(Dot dot) {
+		GeoDot ed = (GeoDot)dot;
+		return Math.sqrt((x-ed.x)*(x-ed.x)+(y-ed.y)*(y-ed.y));
+	}
 
 }
