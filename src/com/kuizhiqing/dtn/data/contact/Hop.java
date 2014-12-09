@@ -6,11 +6,12 @@ import java.util.HashMap;
 public class Hop {
 	
 	private ArrayList<ArrayList<Dot>> list;
-	private HashMap<String,ArrayList<Dot>> subpath = new HashMap<String,ArrayList<Dot>>();
+	private HashMap<String,ArrayList<Dot>> subpath;
 	
 	
 	public Hop(ArrayList<ArrayList<Dot>> list){
 		this.list = list;
+		subpath = new HashMap<String,ArrayList<Dot>>();
 	}
 	
 	/**
