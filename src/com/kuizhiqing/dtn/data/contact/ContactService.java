@@ -2,15 +2,18 @@ package com.kuizhiqing.dtn.data.contact;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ContactService {
 	
 	private ArrayList<ArrayList<Dot>> list;
+	private HashMap<String,ArrayList<Dot>> subpath;
 	public int node;
 	
 	public void init(){
 		node = 0;
 		list = new ArrayList<ArrayList<Dot>>();
+		subpath = new HashMap<String,ArrayList<Dot>>();
 	}
 	
 	public void loaddata(String file) throws Exception{
@@ -131,10 +134,10 @@ public class ContactService {
 	/**
 	 * attention : this function is DEPTH FIRST if non strict !!!
 	 *             time first do not mean with less time  ATTENTION !!! 
-	 * true true   严格2跳,深度优先  strict two hop, time first
-	 * true false  无限制，广度优先   in two hop, hop first
-	 * false false 无限制，广度优先   in two hop, hop first
-	 * false true  无限制，深度优先   in two hop, time first
+	 * true true   涓ユ牸2璺�娣卞害浼樺厛  strict two hop, time first
+	 * true false  鏃犻檺鍒讹紝骞垮害浼樺厛   in two hop, hop first
+	 * false false 鏃犻檺鍒讹紝骞垮害浼樺厛   in two hop, hop first
+	 * false true  鏃犻檺鍒讹紝娣卞害浼樺厛   in two hop, time first
 	 * @param n1
 	 * @param n2
 	 * @param strict if allowed direct contact
@@ -294,6 +297,10 @@ public class ContactService {
 	public ArrayList<Dot> quikHop(Dot n1, Dot n2, int n){
 //		if(n==3) return quikThreeHop(n1, n2);
 		//System.out.println("quikHop : " + n1.getId()+ " after " + n1.getTime());
+		String title = n1.getId()+"_"+n1.getTime()+"_"+n2.getId()+"_"+n2.getTime()+"_"+n;
+		if(subpath.containsKey(title)){
+			return subpath.get(title);
+		}
 		ArrayList<Dot> result = new ArrayList<Dot>();
 		ArrayList<Dot> tmp = null;
 		for(Dot d : list.get(n1.getId())){
@@ -321,6 +328,7 @@ public class ContactService {
 			}
 		}
 		if(result.size()<=1) return null;
+		subpath.put(title, result);
 		return result;
 	}
 	
@@ -377,7 +385,7 @@ public class ContactService {
 		cs.console(re3);
 		ArrayList<Dot> re4 = cs.quikThreeHop(n1, n2);
 		cs.console(re4);
-		ArrayList<Dot> rek = cs.quikHop(n1, n2,3);
+		ArrayList<Dot> rek = cs.quikHop(n1, n2,4);
 		cs.console(rek);
 		
 		ArrayList<ArrayList<Dot>> ref = cs.twoHops(n1, n2);
