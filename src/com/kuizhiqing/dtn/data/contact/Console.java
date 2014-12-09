@@ -43,7 +43,7 @@ public class Console {
 			e.printStackTrace();
 		}
 		Hop hop = new Hop(list);
-		Dot n1 = new Dot(16,0);
+		Dot n1 = new Dot(16,100000);
 		Dot n2 = new Dot(20,1000000);
 		ArrayList<Dot> re = hop.hop(n1, n2);
 		console(re);
@@ -57,7 +57,7 @@ public class Console {
 		console(re3);
 		ArrayList<Dot> re4 = hop.quikThreeHop(n1, n2);
 		console(re4);
-		ArrayList<Dot> rek = hop.quikHop(n1, n2,4);
+		ArrayList<Dot> rek = hop.quikHop(n1, n2,3);
 		console(rek);
 		
 		ArrayList<ArrayList<Dot>> ref = hop.twoHops(n1, n2);

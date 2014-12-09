@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class LatencyHop {
 	
+	public static final int probe = 100;
+	public static final int maxhops = 4;
+	
 	private static int getRandom(int min, int max){
 		double tmp = Math.random()*(max-min)+min;
 		return (int)tmp;
@@ -29,13 +32,27 @@ public class LatencyHop {
 		return result;
 	}
 	
-	ArrayList<Double> hop1times = new ArrayList<Double>();
+	static ArrayList<ArrayList<Double>> hoptimes = new ArrayList<ArrayList<Double>>();
 	public void statistic(ArrayList<ArrayList<Dot>> list, ArrayList<Dot> probes ){
 		Hop hop = new Hop(list);
-		ArrayList<Dot> hop1 = null;
-		for(int i=0;i<probes.size();i+=2){
-			hop1 = hop.hop(probes.get(i), probes.get(i+1));
-			hop1times.add(hop1.get(hop1.size()-1).getTime()-hop1.get(0).getTime());
+		ArrayList<Dot> hops = null;
+		for(int j=0;j<maxhops;j++){
+			hoptimes.add(new ArrayList<Double>());
+			for(int i=0;i<probes.size();i+=2){
+				if(j==0){
+					hops = hop.hop(probes.get(i), probes.get(i+1));
+				}else if(j==1){
+					hops = hop.quikTwoHop(probes.get(i), probes.get(i+1));
+				}else if(j==2){
+					hops = hop.quikThreeHop(probes.get(i), probes.get(i+1));
+				}else{
+					hops = hop.quikHop(probes.get(i), probes.get(i+1), j+1);
+				}
+				if(hops!=null){
+					hoptimes.get(j).add(hops.get(hops.size()-1).getTime()-hops.get(0).getTime());
+				}
+				System.out.println((j+1)+"-hop "+(i+1)+"-th probe over");
+			}
 		}
 		
 	}
@@ -46,13 +63,27 @@ public class LatencyHop {
 		
 		String filename = "data/pmtr.txt";
 		ArrayList<ArrayList<Dot>> list = null;
+		LatencyHop lh = new LatencyHop();
 		try {
 			list = IOService.loaddata(filename);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		ArrayList<Dot> probes = getProbeDots(list, 20);
+		ArrayList<Dot> probes = getProbeDots(list, probe);
 		Console.console(probes);
+		lh.statistic(list, probes);
+		
+		int i=0;
+		for(ArrayList<Double> tt : hoptimes){
+			double sum = 0;
+			for(double d : tt){
+				sum += d;
+			}
+			System.out.println((i+1)+"-hop|"+sum/hoptimes.get(i).size());
+			System.out.println((i+1)+"-hop|"+hoptimes.get(i).size());
+			i++;
+		}
+		
 		
 		System.out.println("time:"+(System.currentTimeMillis()-runtime)/1000+"s");
 	}
