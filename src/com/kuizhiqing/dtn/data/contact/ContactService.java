@@ -134,10 +134,10 @@ public class ContactService {
 	/**
 	 * attention : this function is DEPTH FIRST if non strict !!!
 	 *             time first do not mean with less time  ATTENTION !!! 
-	 * true true   涓ユ牸2璺�娣卞害浼樺厛  strict two hop, time first
-	 * true false  鏃犻檺鍒讹紝骞垮害浼樺厛   in two hop, hop first
-	 * false false 鏃犻檺鍒讹紝骞垮害浼樺厛   in two hop, hop first
-	 * false true  鏃犻檺鍒讹紝娣卞害浼樺厛   in two hop, time first
+	 * true true   严格2跳,深度优先  strict two hop, time first
+	 * true false  无限制，广度优先   in two hop, hop first
+	 * false false 无限制，广度优先   in two hop, hop first
+	 * false true  无限制，深度优先   in two hop, time first
 	 * @param n1
 	 * @param n2
 	 * @param strict if allowed direct contact
