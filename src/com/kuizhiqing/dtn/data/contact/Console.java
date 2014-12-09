@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Console {
 	
-	public void console(ArrayList<Dot> path){
+	public static void console(ArrayList<Dot> path){
 		System.out.println("------------");
 		if(path==null) return;
 		String line = "";
@@ -14,7 +14,7 @@ public class Console {
 		System.out.println(line);
 	}
 	
-	public void consoleList(ArrayList<ArrayList<Dot>> path){
+	public static void consoleList(ArrayList<ArrayList<Dot>> path){
 		System.out.println("------------");
 		if(path==null) return;
 		String line = "";
@@ -34,7 +34,6 @@ public class Console {
 		String outdata = "result/contact/pmtr_paths.csv";
 		//String result = "result/contact/pmtr_results.txt";
 		
-		Console cs = new Console();
 		ArrayList<ArrayList<Dot>> list = null;
 		IOService is = new IOService();
 		try {
@@ -47,7 +46,7 @@ public class Console {
 		Dot n1 = new Dot(16,0);
 		Dot n2 = new Dot(20,1000000);
 		ArrayList<Dot> re = hop.hop(n1, n2);
-		cs.console(re);
+		console(re);
 		ArrayList<Dot> re0 = hop.twoHop(n1, n2);
 //		cs.console(re0);
 		ArrayList<Dot> re1 = hop.twoHop(n1, n2,true);
@@ -55,11 +54,11 @@ public class Console {
 		ArrayList<Dot> re2 = hop.twoHop(n1, n2,false);
 //		cs.console(re2);
 		ArrayList<Dot> re3 = hop.quikTwoHop(n1, n2);
-		cs.console(re3);
+		console(re3);
 		ArrayList<Dot> re4 = hop.quikThreeHop(n1, n2);
-		cs.console(re4);
+		console(re4);
 		ArrayList<Dot> rek = hop.quikHop(n1, n2,4);
-		cs.console(rek);
+		console(rek);
 		
 		ArrayList<ArrayList<Dot>> ref = hop.twoHops(n1, n2);
 		ArrayList<ArrayList<Dot>> ref3 = hop.threeHops(n1, n2);

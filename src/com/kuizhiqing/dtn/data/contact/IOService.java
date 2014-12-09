@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class IOService {
 	
-	public ArrayList<ArrayList<Dot>> loaddata(String file) throws Exception{
+	public static ArrayList<ArrayList<Dot>> loaddata(String file) throws Exception{
 		int node = 0;
 		ArrayList<ArrayList<Dot>> list = new ArrayList<ArrayList<Dot>>();
 		BufferedReader br = new BufferedReader(new FileReader(new File(file)));
@@ -58,7 +58,7 @@ public class IOService {
 		return list;
 	}
 	
-	public void printdata(String file, ArrayList<ArrayList<Dot>> list) throws IOException{
+	public static void printdata(String file, ArrayList<ArrayList<Dot>> list) throws IOException{
 		BufferedWriter wr = new BufferedWriter(new FileWriter(new File(file)));
 		for(int i=0;i<list.size();i++){
 			wr.write(i+":");
