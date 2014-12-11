@@ -1,11 +1,15 @@
 package com.kuizhiqing.dtn.data.contact;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class LatencyHop {
 	
 	public static final int probe = 100;
-	public static final int maxhops = 2;
+	public static final int maxhops = 5;
 	
 	private static int getRandom(int min, int max){
 		double tmp = Math.random()*(max-min)+min;
@@ -61,7 +65,8 @@ public class LatencyHop {
 		System.out.println("======================================");
 		long runtime = System.currentTimeMillis();
 		
-		String filename = "data/pmtr.txt";
+		String pre = "mit_l";
+		String filename = "data/"+pre+".txt";
 		ArrayList<ArrayList<Dot>> list = null;
 		LatencyHop lh = new LatencyHop();
 		try {
@@ -73,15 +78,29 @@ public class LatencyHop {
 		Console.console(probes);
 		lh.statistic(list, probes);
 		
-		int i=0;
-		for(ArrayList<Double> tt : hoptimes){
-			double sum = 0;
-			for(double d : tt){
-				sum += d;
+		String file="result/hop/"+pre;
+		String file1="result/hop/"+pre;
+		BufferedWriter wr = null;
+		BufferedWriter wr1 = null;
+		try {
+			wr = new BufferedWriter(new FileWriter(new File(file)));
+			wr1 = new BufferedWriter(new FileWriter(new File(file1)));
+			int i=0;
+			for(ArrayList<Double> tt : hoptimes){
+				double sum = 0;
+				for(double d : tt){
+					sum += d;
+				}
+				wr.write(sum/hoptimes.get(i).size()+"\r\n");
+				wr1.write(hoptimes.get(i).size()+"\r\n");
+				System.out.println((i+1)+"-hop|"+sum/hoptimes.get(i).size());
+				System.out.println((i+1)+"-hop|"+hoptimes.get(i).size());
+				i++;
 			}
-			System.out.println((i+1)+"-hop|"+sum/hoptimes.get(i).size());
-			System.out.println((i+1)+"-hop|"+hoptimes.get(i).size());
-			i++;
+			wr.close();
+			wr1.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
 		

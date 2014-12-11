@@ -209,6 +209,7 @@ public class Hop {
 		ArrayList<Dot> tmp = null;
 		ArrayList<Integer> friends = new ArrayList<Integer>();
 		for(Dot d : list.get(n1.getId())){
+			if(friends.contains(d.getId())) continue;
 			if(d.getTime()>=n1.getTime()&&d.getTime()<=n2.getTime()){
 				friends.add(d.getId());
 				tmp = new ArrayList<Dot>();
@@ -247,6 +248,7 @@ public class Hop {
 		ArrayList<Dot> tmp = null;
 		ArrayList<Integer> friends = new ArrayList<Integer>();
 		for(Dot d : list.get(n1.getId())){
+			if(friends.contains(d.getId())) continue;
 			if(d.getTime()>=n1.getTime()&&d.getTime()<=n2.getTime()){
 				friends.add(d.getId());
 				tmp = new ArrayList<Dot>();
