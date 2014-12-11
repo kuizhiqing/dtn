@@ -174,10 +174,13 @@ public class Hop {
 //		System.out.println("twohops : " + n1.getId()+ " after " + n1.getTime());
 		ArrayList<Dot> result = new ArrayList<Dot>();
 		ArrayList<Dot> tmp = null;
+		ArrayList<Integer> friends = new ArrayList<Integer>();
 		for(Dot d : list.get(n1.getId())){
-			tmp = new ArrayList<Dot>();
-			tmp.add(n1);
+			if(friends.contains(d.getId())) continue;
 			if(d.getTime()>=n1.getTime()&&d.getTime()<=n2.getTime()){
+				friends.add(d.getId());
+				tmp = new ArrayList<Dot>();
+				tmp.add(n1);
 				if(d.getId()==n2.getId()){
 					tmp.add(d);
 				}else{
@@ -204,10 +207,12 @@ public class Hop {
 	public ArrayList<Dot> quikThreeHop(Dot n1, Dot n2){
 		ArrayList<Dot> result = new ArrayList<Dot>();
 		ArrayList<Dot> tmp = null;
+		ArrayList<Integer> friends = new ArrayList<Integer>();
 		for(Dot d : list.get(n1.getId())){
-			tmp = new ArrayList<Dot>();
-			tmp.add(n1);
 			if(d.getTime()>=n1.getTime()&&d.getTime()<=n2.getTime()){
+				friends.add(d.getId());
+				tmp = new ArrayList<Dot>();
+				tmp.add(n1);
 				if(d.getId()==n2.getId()){
 					tmp.add(d);
 				}else{
@@ -240,10 +245,12 @@ public class Hop {
 		}
 		ArrayList<Dot> result = new ArrayList<Dot>();
 		ArrayList<Dot> tmp = null;
+		ArrayList<Integer> friends = new ArrayList<Integer>();
 		for(Dot d : list.get(n1.getId())){
-			tmp = new ArrayList<Dot>();
-			tmp.add(n1);
 			if(d.getTime()>=n1.getTime()&&d.getTime()<=n2.getTime()){
+				friends.add(d.getId());
+				tmp = new ArrayList<Dot>();
+				tmp.add(n1);
 				if(d.getId()==n2.getId()){
 					tmp.add(d);
 				}else{

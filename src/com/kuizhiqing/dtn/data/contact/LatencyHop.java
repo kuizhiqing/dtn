@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class LatencyHop {
 	
 	public static final int probe = 100;
-	public static final int maxhops = 3;
+	public static final int maxhops = 2;
 	
 	private static int getRandom(int min, int max){
 		double tmp = Math.random()*(max-min)+min;
@@ -61,7 +61,7 @@ public class LatencyHop {
 		System.out.println("======================================");
 		long runtime = System.currentTimeMillis();
 		
-		String filename = "data/roller.txt";
+		String filename = "data/pmtr.txt";
 		ArrayList<ArrayList<Dot>> list = null;
 		LatencyHop lh = new LatencyHop();
 		try {
