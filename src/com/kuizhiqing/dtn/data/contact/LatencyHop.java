@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class LatencyHop {
 	
 	public static final int probe = 100;
-	public static final int maxhops = 5;
+	public static final int maxhops = 4;
 	
 	private static int getRandom(int min, int max){
 		double tmp = Math.random()*(max-min)+min;
@@ -65,7 +65,7 @@ public class LatencyHop {
 		System.out.println("======================================");
 		long runtime = System.currentTimeMillis();
 		
-		String pre = "mit_l";
+		String pre = "roller";
 		String filename = "data/"+pre+".txt";
 		ArrayList<ArrayList<Dot>> list = null;
 		LatencyHop lh = new LatencyHop();
@@ -79,12 +79,12 @@ public class LatencyHop {
 		lh.statistic(list, probes);
 		
 		String file="result/hop/"+pre;
-		String file1="result/hop/"+pre;
+		String file1="result/hop/"+pre+"_a";
 		BufferedWriter wr = null;
 		BufferedWriter wr1 = null;
 		try {
-			wr = new BufferedWriter(new FileWriter(new File(file)));
-			wr1 = new BufferedWriter(new FileWriter(new File(file1)));
+			wr = new BufferedWriter(new FileWriter(new File(file),true));
+			wr1 = new BufferedWriter(new FileWriter(new File(file1),true));
 			int i=0;
 			for(ArrayList<Double> tt : hoptimes){
 				double sum = 0;
